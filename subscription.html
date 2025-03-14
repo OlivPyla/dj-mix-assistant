@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Mix Assistant - Subscribe</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .subscription-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .subscription-container h1 {
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        .subscription-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .subscription-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .subscription-card h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 2.5em;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 0.5em;
+            opacity: 0.8;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .features li {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        .subscribe-btn {
+            background: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .subscribe-btn:hover {
+            background: #666;
+            transform: scale(1.02);
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='index.html'">← Back to Search</button>
+
+    <div class="subscription-container">
+        <h1>Choose Your Plan</h1>
+        <div class="subscription-options">
+            <div class="subscription-card">
+                <h2>Monthly Plan</h2>
+                <div class="price">€5<span>/month</span></div>
+                <ul class="features">
+                    <li>✓ Unlimited searches</li>
+                    <li>✓ All recommendation features</li>
+                    <li>✓ Auto-renewal monthly</li>
+                    <li>✓ Cancel anytime</li>
+                </ul>
+                <button class="subscribe-btn" onclick="handleSubscription('monthly')">Subscribe Monthly</button>
+            </div>
+
+            <div class="subscription-card">
+                <h2>Annual Plan</h2>
+                <div class="price">€30<span>/year</span></div>
+                <ul class="features">
+                    <li>✓ Unlimited searches</li>
+                    <li>✓ All recommendation features</li>
+                    <li>✓ Save €30 per year</li>
+                    <li>✓ Cancel anytime</li>
+                </ul>
+                <button class="subscribe-btn" onclick="handleSubscription('annual')">Subscribe Yearly</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleSubscription(plan) {
+            // Here you would integrate with your payment processor (e.g., Stripe)
+            const prices = {
+                monthly: 5,
+                annual: 30
+            };
+            
+            alert(`Subscription feature coming soon!\nSelected plan: ${plan} (€${prices[plan]})`);
+            // In a real implementation, this would open your payment processing flow
+        }
+    </script>
+</body>
+</html> 

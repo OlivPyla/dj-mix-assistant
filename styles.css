@@ -1,0 +1,367 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.85), 
+        rgba(0, 0, 0, 0.85)
+    ),
+    url('https://img.freepik.com/photos-premium/dj-mixage-au-coucher-du-soleil-beach-party-vacances-ete-plein-air-disc-jockey-mains-jouant-musique-pour-tou_931559-3721.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #808080;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.search-section {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+#songSearch {
+    width: 60%;
+    padding: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+#searchButton {
+    padding: 1.2rem 2.5rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    letter-spacing: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#searchButton:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.recommendations-section {
+    margin-bottom: 3rem;
+}
+
+.recommendation-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 12px;
+    min-height: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.card h3 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.recommendation {
+    color: #b0b0b0;
+    line-height: 1.6;
+    padding: 0.5rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+.recommendation p {
+    margin: 0.5rem 0;
+}
+
+.recommendation strong {
+    color: #ffffff;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.usage-counter {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    color: #808080;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid #333;
+    margin-top: 3rem;
+    margin-bottom: 80px;
+}
+
+.subscribe-btn {
+    margin-top: 1.5rem;
+    padding: 1rem 2.5rem;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.subscribe-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    transform: translateY(-2px);
+}
+
+.autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    border-radius: 8px;
+    margin-top: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    color: #e0e0e0;
+}
+
+.suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.suggestion-item strong {
+    color: #ffffff;
+}
+
+.suggestion-item .play-sample-btn {
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.suggestion-item .play-sample-btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.1);
+}
+
+.suggestion-item .play-sample-btn:active {
+    transform: scale(0.95);
+}
+
+.spotify-corner {
+    position: absolute;
+    top: 20px;
+    right: calc((100% - 1200px) / 2 + 2rem);
+    z-index: 1000;
+}
+
+.spotify-corner img {
+    height: 25px;
+    width: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.spotify-corner img:hover {
+    opacity: 1;
+}
+
+.spotify-connect-btn {
+    display: none;
+}
+
+.subtitle, 
+.card h3, 
+.recommendation,
+.usage-counter,
+footer p,
+.subscribe-btn,
+#songSearch {
+    font-family: 'System Font', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                 sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* Add a media query for smaller screens */
+@media (max-width: 1200px) {
+    .spotify-corner {
+        right: 2rem;
+    }
+}
+
+.suggestion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.suggestion-item > div {
+    flex: 1;
+}
+
+.recommendation-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.track-title {
+    font-size: 1.1rem;
+    color: white;
+    margin: 0;
+}
+
+.artist-name {
+    color: #808080;
+    margin: 0;
+}
+
+.bpm-info {
+    color: #1DB954;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Audio Preview Styles */
+.recommendation-card {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.preview-player {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.no-preview {
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* Customize audio player appearance */
+audio::-webkit-media-controls-panel {
+    background-color: #f0f0f0;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+    color: #333;
+}
+
+.play-sample-btn {
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.play-sample-btn:hover {
+    background-color: #1ed760;
+    transform: scale(1.05);
+}
+
+.play-sample-btn:active {
+    transform: scale(0.95);
+} 
