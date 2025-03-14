@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Mix Assistant</title>
+    <style>
+        /* Fallback system fonts that look similar to Montserrat */
+        @font-face {
+            font-family: 'System Font';
+            src: local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'),
+                 local('Roboto'), local('Oxygen'), local('Ubuntu'), local('Cantarell'),
+                 local('Fira Sans'), local('Droid Sans'), local('Helvetica Neue');
+            font-weight: 300 600;
+        }
+        .player-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(23, 23, 23, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 50px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 120px;
+        }
+
+        .control-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .track-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            flex: 1;
+            margin: 0 15px;
+            max-width: 60%;
+            overflow: hidden;
+        }
+
+        .track-text {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        #trackName {
+            font-weight: 500;
+            color: white;
+            font-size: 14px;
+            white-space: nowrap;
+            animation: scrollText 20s linear infinite;
+            display: inline-block;
+            padding-left: 100%;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        #artistName {
+            display: none;
+        }
+
+        #trackArtwork {
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 15px;
+        }
+
+        #volumeSlider {
+            width: 80px;
+            height: 3px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        #volumeSlider:hover {
+            opacity: 1;
+        }
+
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #volumeSlider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Update main margin to account for player */
+        main {
+            margin-bottom: 100px;
+        }
+
+        footer {
+            margin-bottom: 90px;
+        }
+
+        @media (max-width: 768px) {
+            .player-bar {
+                bottom: 10px;
+                width: 95%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="spotify-corner">
+            <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png" alt="Spotify Logo">
+        </div>
+
+        <header>
+            <h1>DJ Mix Assistant</h1>
+            <p class="subtitle">Find the perfect next track for your mix</p>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <input type="text" id="songSearch" placeholder="Search for a song...">
+                <button id="searchButton">Search</button>
+            </div>
+
+            <div class="recommendations-section">
+                <h2>Recommended Next Tracks</h2>
+                <div class="recommendation-cards">
+                    <div class="card">
+                        <h3>Keep the Energy</h3>
+                        <div id="sameBPM" class="recommendation"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Raise the Energy</h3>
+                        <div id="increaseBPM" class="recommendation"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Lower the Energy</h3>
+                        <div id="decreaseBPM" class="recommendation"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="player-bar">
+            <div class="player-controls">
+                <button id="previousTrack" class="control-button">⏮</button>
+                <button id="playPauseBtn" class="control-button">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon" style="display: none;">⏸</span>
+                </button>
+                <button id="nextTrack" class="control-button">⏭</button>
+            </div>
+            <div class="track-info">
+                <div class="track-text">
+                    <span id="trackName">No track playing</span>
+                </div>
+            </div>
+            <div class="volume-control">
+                <button id="volumeBtn" class="control-button">🔊</button>
+                <input type="range" id="volumeSlider" min="0" max="100" value="50">
+            </div>
+        </div>
+
+        <footer>
+            <p>Remaining free searches: <span id="searchCount">5</span>. Subscribe for unlimited recommendations!</p>
+            <button id="subscribeButton" class="subscribe-btn">Subscribe Now</button>
+        </footer>
+    </div>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
